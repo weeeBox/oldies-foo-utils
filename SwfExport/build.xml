@@ -1,0 +1,24 @@
+<project name="SwfExport">
+	<property name="dir.parser" value="../SwfParser" />
+	<property name="dir.lib" value="lib" />
+	<property name="dir.source" value="src" />
+	
+	<path id="libs">
+		<fileset dir="${dir.lib}">
+			<include name="**/*.jar" /> 
+		</fileset>
+	</path>
+
+	<target name="build-classes">
+		<mkdir dir="${dir.output}"/>
+		
+		<ant antfile="${dir.parser}/build.xml" target="build-classes" dir="${dir.parser}">
+			<property name="dir.output" value="${dir.output}" />
+		</ant>
+		
+		<javac destdir="${dir.output}" debug="true" encoding="UTF-8">
+		  	<src path="${dir.source}" /> 
+			<classpath refid="libs"/>
+		</javac>
+	</target>
+</project>
